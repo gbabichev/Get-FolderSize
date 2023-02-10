@@ -26,7 +26,7 @@ function Get-FolderSize {
         if ($file.Attributes -like '*System*'){
             continue
         }
-        $fileSize += (Get-Item -Force $file.FullName -ErrorAction SilentlyContinue | Measure-Object -sum Length).sum
+        $fileSize += (Get-Item -Force -LiteralPath $file.FullName -ErrorAction SilentlyContinue | Measure-Object -sum Length).sum
     }
     foreach ($folder in Get-ChildItem -Force -Directory $workingFolder -ErrorAction SilentlyContinue){
         $fileSize = Get-FolderSize -workingFolder $folder.FullName -fileSize $fileSize
